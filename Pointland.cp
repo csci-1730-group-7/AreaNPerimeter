@@ -6,6 +6,7 @@ using namespace std;
 struct Point
 {
     double x, y, distance, slope, equa, slope2, slope3;
+    bool defined;
 };
 
 Point readPt( Point p1, Point p2);
@@ -17,7 +18,7 @@ Point showPt( Point p1, Point p2);
 Point dist( Point p1, Point p2);
 //input is copied into function to calculate the distance
 
-Point slope( Point p1, Point p2);
+Point slope( Point p1, Point p2, bool defined);
 //input is copied into function to calculate the slope
 
 Point midpoint( Point p1, Point p2);
@@ -64,8 +65,8 @@ int main()
             cin >> junk >> q1.x >> junk >> q1.y >> junk;
             cout << "Enter point 2: ";
             cin >> junk >> q2.x >> junk >> q2.y >> junk;
-            s1=slope(q1,q2);
-            if(s1==){cout<<"The slope is undefined"<<endl;}
+            s1=slope(q1,q2,__CTERMID_DEFINED);
+            if(s1.defined==false){cout<<"The slope is undefined"<<endl;}
             else{cout << "Slope = " << s1.slope << endl;}
         break;
         
@@ -83,7 +84,7 @@ int main()
             cin >> junk >> q1.x >> junk >> q1.y >> junk;
             cout << "Enter point 2: ";
             cin >> junk >> q2.x >> junk >> q2.y >> junk;
-            s1 = slope(q1,q2);
+            s1 = slope(q1,q2,__CTERMID_DEFINED);
             e1 = equation(q1,q2);
             /*cout << "y = " << s1 << "x + " << e1 << endl;*/
         break;
@@ -127,14 +128,11 @@ Point dist( Point p1, Point p2)
     return distance;
 }
 
-Point slope(Point p1, Point p2)
+Point slope(Point p1, Point p2, bool defined)
 {
     Point m;
-    if(p2.x==p1.x)
-    {
-        }
-
-        m.slope = (p2.y-p1.y) / (p2.x-p1.x);
+    if(p2.x==p1.x) {defined=false;}
+    else {m.slope = (p2.y-p1.y) / (p2.x-p1.x);}
         return m;
 }
 
